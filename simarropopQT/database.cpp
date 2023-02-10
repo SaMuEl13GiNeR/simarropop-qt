@@ -42,13 +42,13 @@ bool Database::update(const QString& name,const QString& correo, int id){
 void Database::select(){
 	QSqlQuery query;
 	qDebug()<<"dentro del select";
-	query.prepare("SELECT * FROM simarropop_articulo");
+	query.prepare("SELECT * FROM res_partner WHERE is_user = true");
 	query.exec();
 	
 	while(query.next())
 	{
 	qDebug() << "id: " << query.value(0).toString();
-	
+	qDebug() << "name: " << query.value(1).toString();
 	}
 }
 

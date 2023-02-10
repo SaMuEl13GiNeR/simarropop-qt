@@ -52,15 +52,29 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = database.cpp \
+SOURCES       = articulo.cpp \
+		categoria.cpp \
+		conexion.cpp \
+		database.cpp \
 		dinformacion.cpp \
+		foto.cpp \
 		main.cpp \
-		mainwindow.cpp moc_dinformacion.cpp \
+		mainwindow.cpp \
+		mensaje.cpp \
+		usuario.cpp \
+		valoracion.cpp moc_dinformacion.cpp \
 		moc_mainwindow.cpp
-OBJECTS       = database.o \
+OBJECTS       = articulo.o \
+		categoria.o \
+		conexion.o \
+		database.o \
 		dinformacion.o \
+		foto.o \
 		main.o \
 		mainwindow.o \
+		mensaje.o \
+		usuario.o \
+		valoracion.o \
 		moc_dinformacion.o \
 		moc_mainwindow.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -144,12 +158,25 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		simarropopQT.pro database.h \
+		simarropopQT.pro articulo.h \
+		categoria.h \
+		database.h \
 		dinformacion.h \
-		mainwindow.h database.cpp \
+		foto.h \
+		mainwindow.h \
+		mensaje.h \
+		usuario.h \
+		valoracion.h articulo.cpp \
+		categoria.cpp \
+		conexion.cpp \
+		database.cpp \
 		dinformacion.cpp \
+		foto.cpp \
 		main.cpp \
-		mainwindow.cpp
+		mainwindow.cpp \
+		mensaje.cpp \
+		usuario.cpp \
+		valoracion.cpp
 QMAKE_TARGET  = simarropopQT
 DESTDIR       = 
 TARGET        = simarropopQT
@@ -341,8 +368,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents database.h dinformacion.h mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents database.cpp dinformacion.cpp main.cpp mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents articulo.h categoria.h database.h dinformacion.h foto.h mainwindow.h mensaje.h usuario.h valoracion.h $(DISTDIR)/
+	$(COPY_FILE) --parents articulo.cpp categoria.cpp conexion.cpp database.cpp dinformacion.cpp foto.cpp main.cpp mainwindow.cpp mensaje.cpp usuario.cpp valoracion.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents dinformacion.ui mainwindow.ui $(DISTDIR)/
 
 
@@ -387,6 +414,7 @@ moc_dinformacion.cpp: dinformacion.h \
 moc_mainwindow.cpp: mainwindow.h \
 		dinformacion.h \
 		ui_dinformacion.h \
+		database.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/mati/Documents/simarropopQT/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/mati/Documents/simarropopQT -I/home/mati/Documents/simarropopQT -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
@@ -416,6 +444,15 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
+articulo.o: articulo.cpp articulo.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o articulo.o articulo.cpp
+
+categoria.o: categoria.cpp categoria.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o categoria.o categoria.cpp
+
+conexion.o: conexion.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o conexion.o conexion.cpp
+
 database.o: database.cpp database.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o database.o database.cpp
 
@@ -423,15 +460,29 @@ dinformacion.o: dinformacion.cpp dinformacion.h \
 		ui_dinformacion.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dinformacion.o dinformacion.cpp
 
+foto.o: foto.cpp foto.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o foto.o foto.cpp
+
 main.o: main.cpp mainwindow.h \
 		dinformacion.h \
-		ui_dinformacion.h
+		ui_dinformacion.h \
+		database.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 mainwindow.o: mainwindow.cpp mainwindow.h \
 		dinformacion.h \
-		ui_dinformacion.h
+		ui_dinformacion.h \
+		database.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
+
+mensaje.o: mensaje.cpp mensaje.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mensaje.o mensaje.cpp
+
+usuario.o: usuario.cpp usuario.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o usuario.o usuario.cpp
+
+valoracion.o: valoracion.cpp valoracion.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o valoracion.o valoracion.cpp
 
 moc_dinformacion.o: moc_dinformacion.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_dinformacion.o moc_dinformacion.cpp
