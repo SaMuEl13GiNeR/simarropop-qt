@@ -9,12 +9,13 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent){
 	resize(800,600);
 	
 	dInformacion = NULL;
+	valoracionController = NULL;
 	
 	crearActions();
 	crearMenus();
-	qDebug() << db.connect();
-	db.select();
-	db.close();
+	qDebug() << "antes del insert";
+	valoracionController->insertarValoracion();
+	qDebug() << "despues del insert";
 }
 
 void MainWindow::crearActions(){

@@ -7,7 +7,7 @@
 #include <QMenuBar>
 #include <QAction>
 #include "dinformacion.h"
-#include "database.h"
+#include "valoracioncontroller.h"
 
 
 class MainWindow : public QMainWindow{
@@ -22,7 +22,7 @@ public:
 	QAction *accionInformacion;
 	DInformacion *dInformacion;
 	
-	Database db;	
+	ValoracionController *valoracionController;	
 	
 	void crearActions();
 	void crearMenus();

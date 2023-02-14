@@ -5,9 +5,11 @@ class Valoracion{
 
 public:
 	Valoracion();
-	Valoracion(long, int, QString);
+	Valoracion(int, int, QString, int, int);
 	
-	long id;
+	int id;
 	int estrellas;
 	QString opinion;
+	int usuario_emisor;
+	int usuario_receptor;
 };

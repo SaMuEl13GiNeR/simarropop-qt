@@ -14,10 +14,10 @@ EQ            = =
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -O2 -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -I. -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
+INCPATH       = -I. -I. -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
 QMAKE         = /usr/lib/qt5/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -40,7 +40,7 @@ DISTNAME      = simarropopQT1.0.0
 DISTDIR = /home/mati/Documents/simarropopQT/.tmp/simarropopQT1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1
-LIBS          = $(SUBLIBS) -lpq /usr/lib/x86_64-linux-gnu/libQt5Widgets.so /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Sql.so /usr/lib/x86_64-linux-gnu/libQt5Core.so -lGL -lpthread   
+LIBS          = $(SUBLIBS) -lpq /usr/lib/x86_64-linux-gnu/libQt5Widgets.so /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Sql.so /usr/lib/x86_64-linux-gnu/libQt5Network.so /usr/lib/x86_64-linux-gnu/libQt5Core.so -lGL -lpthread   
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -54,7 +54,6 @@ OBJECTS_DIR   = ./
 
 SOURCES       = articulo.cpp \
 		categoria.cpp \
-		conexion.cpp \
 		database.cpp \
 		dinformacion.cpp \
 		foto.cpp \
@@ -62,11 +61,12 @@ SOURCES       = articulo.cpp \
 		mainwindow.cpp \
 		mensaje.cpp \
 		usuario.cpp \
-		valoracion.cpp moc_dinformacion.cpp \
-		moc_mainwindow.cpp
+		valoracion.cpp \
+		valoracioncontroller.cpp moc_dinformacion.cpp \
+		moc_mainwindow.cpp \
+		moc_valoracioncontroller.cpp
 OBJECTS       = articulo.o \
 		categoria.o \
-		conexion.o \
 		database.o \
 		dinformacion.o \
 		foto.o \
@@ -75,8 +75,10 @@ OBJECTS       = articulo.o \
 		mensaje.o \
 		usuario.o \
 		valoracion.o \
+		valoracioncontroller.o \
 		moc_dinformacion.o \
-		moc_mainwindow.o
+		moc_mainwindow.o \
+		moc_valoracioncontroller.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -166,9 +168,9 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		mainwindow.h \
 		mensaje.h \
 		usuario.h \
-		valoracion.h articulo.cpp \
+		valoracion.h \
+		valoracioncontroller.h articulo.cpp \
 		categoria.cpp \
-		conexion.cpp \
 		database.cpp \
 		dinformacion.cpp \
 		foto.cpp \
@@ -176,7 +178,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		mainwindow.cpp \
 		mensaje.cpp \
 		usuario.cpp \
-		valoracion.cpp
+		valoracion.cpp \
+		valoracioncontroller.cpp
 QMAKE_TARGET  = simarropopQT
 DESTDIR       = 
 TARGET        = simarropopQT
@@ -368,8 +371,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents articulo.h categoria.h database.h dinformacion.h foto.h mainwindow.h mensaje.h usuario.h valoracion.h $(DISTDIR)/
-	$(COPY_FILE) --parents articulo.cpp categoria.cpp conexion.cpp database.cpp dinformacion.cpp foto.cpp main.cpp mainwindow.cpp mensaje.cpp usuario.cpp valoracion.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents articulo.h categoria.h database.h dinformacion.h foto.h mainwindow.h mensaje.h usuario.h valoracion.h valoracioncontroller.h $(DISTDIR)/
+	$(COPY_FILE) --parents articulo.cpp categoria.cpp database.cpp dinformacion.cpp foto.cpp main.cpp mainwindow.cpp mensaje.cpp usuario.cpp valoracion.cpp valoracioncontroller.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents dinformacion.ui mainwindow.ui $(DISTDIR)/
 
 
@@ -402,22 +405,29 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -Wall -Wextra -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_dinformacion.cpp moc_mainwindow.cpp
+compiler_moc_header_make_all: moc_dinformacion.cpp moc_mainwindow.cpp moc_valoracioncontroller.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_dinformacion.cpp moc_mainwindow.cpp
+	-$(DEL_FILE) moc_dinformacion.cpp moc_mainwindow.cpp moc_valoracioncontroller.cpp
 moc_dinformacion.cpp: dinformacion.h \
 		ui_dinformacion.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/mati/Documents/simarropopQT/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/mati/Documents/simarropopQT -I/home/mati/Documents/simarropopQT -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include dinformacion.h -o moc_dinformacion.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/mati/Documents/simarropopQT/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/mati/Documents/simarropopQT -I/home/mati/Documents/simarropopQT -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include dinformacion.h -o moc_dinformacion.cpp
 
 moc_mainwindow.cpp: mainwindow.h \
 		dinformacion.h \
 		ui_dinformacion.h \
-		database.h \
+		valoracioncontroller.h \
+		valoracion.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/mati/Documents/simarropopQT/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/mati/Documents/simarropopQT -I/home/mati/Documents/simarropopQT -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/mati/Documents/simarropopQT/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/mati/Documents/simarropopQT -I/home/mati/Documents/simarropopQT -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
+
+moc_valoracioncontroller.cpp: valoracioncontroller.h \
+		valoracion.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/mati/Documents/simarropopQT/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/mati/Documents/simarropopQT -I/home/mati/Documents/simarropopQT -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include valoracioncontroller.h -o moc_valoracioncontroller.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -450,9 +460,6 @@ articulo.o: articulo.cpp articulo.h
 categoria.o: categoria.cpp categoria.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o categoria.o categoria.cpp
 
-conexion.o: conexion.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o conexion.o conexion.cpp
-
 database.o: database.cpp database.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o database.o database.cpp
 
@@ -466,13 +473,15 @@ foto.o: foto.cpp foto.h
 main.o: main.cpp mainwindow.h \
 		dinformacion.h \
 		ui_dinformacion.h \
-		database.h
+		valoracioncontroller.h \
+		valoracion.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 mainwindow.o: mainwindow.cpp mainwindow.h \
 		dinformacion.h \
 		ui_dinformacion.h \
-		database.h
+		valoracioncontroller.h \
+		valoracion.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
 mensaje.o: mensaje.cpp mensaje.h
@@ -484,11 +493,18 @@ usuario.o: usuario.cpp usuario.h
 valoracion.o: valoracion.cpp valoracion.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o valoracion.o valoracion.cpp
 
+valoracioncontroller.o: valoracioncontroller.cpp valoracioncontroller.h \
+		valoracion.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o valoracioncontroller.o valoracioncontroller.cpp
+
 moc_dinformacion.o: moc_dinformacion.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_dinformacion.o moc_dinformacion.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
+
+moc_valoracioncontroller.o: moc_valoracioncontroller.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_valoracioncontroller.o moc_valoracioncontroller.cpp
 
 ####### Install
 
