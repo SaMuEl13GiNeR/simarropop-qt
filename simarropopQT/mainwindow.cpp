@@ -9,13 +9,14 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent){
 	resize(800,600);
 	
 	dInformacion = NULL;
-	valoracionController = NULL;
+	valoracionController = new ValoracionController();
 	
 	crearActions();
 	crearMenus();
-	qDebug() << "antes del insert";
+	qDebug() << "antes del select";
+	valoracionController->selectAll();
+	qDebug() << "despues del select";
 	valoracionController->insertarValoracion();
-	qDebug() << "despues del insert";
 }
 
 void MainWindow::crearActions(){

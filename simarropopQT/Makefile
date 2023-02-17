@@ -54,7 +54,6 @@ OBJECTS_DIR   = ./
 
 SOURCES       = articulo.cpp \
 		categoria.cpp \
-		database.cpp \
 		dinformacion.cpp \
 		foto.cpp \
 		main.cpp \
@@ -67,7 +66,6 @@ SOURCES       = articulo.cpp \
 		moc_valoracioncontroller.cpp
 OBJECTS       = articulo.o \
 		categoria.o \
-		database.o \
 		dinformacion.o \
 		foto.o \
 		main.o \
@@ -162,7 +160,6 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		simarropopQT.pro articulo.h \
 		categoria.h \
-		database.h \
 		dinformacion.h \
 		foto.h \
 		mainwindow.h \
@@ -171,7 +168,6 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		valoracion.h \
 		valoracioncontroller.h articulo.cpp \
 		categoria.cpp \
-		database.cpp \
 		dinformacion.cpp \
 		foto.cpp \
 		main.cpp \
@@ -371,8 +367,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents articulo.h categoria.h database.h dinformacion.h foto.h mainwindow.h mensaje.h usuario.h valoracion.h valoracioncontroller.h $(DISTDIR)/
-	$(COPY_FILE) --parents articulo.cpp categoria.cpp database.cpp dinformacion.cpp foto.cpp main.cpp mainwindow.cpp mensaje.cpp usuario.cpp valoracion.cpp valoracioncontroller.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents articulo.h categoria.h dinformacion.h foto.h mainwindow.h mensaje.h usuario.h valoracion.h valoracioncontroller.h $(DISTDIR)/
+	$(COPY_FILE) --parents articulo.cpp categoria.cpp dinformacion.cpp foto.cpp main.cpp mainwindow.cpp mensaje.cpp usuario.cpp valoracion.cpp valoracioncontroller.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents dinformacion.ui mainwindow.ui $(DISTDIR)/
 
 
@@ -459,9 +455,6 @@ articulo.o: articulo.cpp articulo.h
 
 categoria.o: categoria.cpp categoria.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o categoria.o categoria.cpp
-
-database.o: database.cpp database.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o database.o database.cpp
 
 dinformacion.o: dinformacion.cpp dinformacion.h \
 		ui_dinformacion.h

@@ -4,93 +4,135 @@ ValoracionController::ValoracionController(){}
 void ValoracionController::insertarValoracion(){
 	QJsonObject jsonObject;
 	jsonObject.insert("jsonrpc", "2.0");
-	jsonObject.insert("method", "call");
-	jsonObject.insert("id", "970248153");
-	
-	QJsonObject params;
-	params.insert("service","object");
-	params.insert("service","execute");
-	
-	QJsonArray args;
-	args.append("sge22");
-	args.append("2");
-	args.append("1234");
-	args.append("simarropop.valoracion");
-	args.append("create");
-	
-	QJsonObject fields;
-	fields.insert("estrellas", "4");
-	fields.insert("opinion", "la valoracion hecha desde qt");
-	fields.insert("usuario_emisor", "42");
-	fields.insert("usuario_receptor", "82");
-	
-	args.append(fields);
-	params.insert("args", args);
-	jsonObject.insert("params", params);
-	
-	QByteArray postData = QJsonDocument(jsonObject).toJson();
+        jsonObject.insert("method", "call");
+        jsonObject.insert("id", 970248153);
+        QJsonObject params;
+        params.insert("service", "object");
+        params.insert("method", "execute");
+        QJsonArray args;
+        args.append("sge22");
+        args.append(2);
+        args.append("1234");
+        args.append("simarropop.valoracion");
+        args.append("create");
+        
+        QJsonObject fields;
+     
+        fields.insert("estrellas","4");
+        fields.insert("opinion","valoracion hecha desde qt");
+        fields.insert("usuario_emisor","42");
+        fields.insert("usuario_receptor","45");
+        
+        args.append(fields);
+        params.insert("args", args);
+        jsonObject.insert("params", params);
+        
+        QByteArray postData = QJsonDocument(jsonObject).toJson();
 	QNetworkAccessManager *manager = new QNetworkAccessManager();
+	connect(manager,SIGNAL(finished(QNetworkReply *)),
+		this,SLOT(slotPeticion(QNetworkReply *)));
+		
 	QNetworkRequest request;
 	request.setUrl(QUrl("http://192.168.8.226:8069/jsonrpc"));
-	request.setRawHeader(QByteArray("Content Type"), QByteArray("application/json"));
+	request.setRawHeader(QByteArray("Content-Type"), QByteArray("application/json"));
 	QNetworkReply *reply = manager->post(request, postData);
-	
-	if(reply->error() != QNetworkReply::NoError){
-		qDebug() << "ERROR: " << reply->errorString();
-	} else{
-		qDebug() << reply->readAll();
-	}
+	if (reply->error() != QNetworkReply::NoError) {
+            qDebug() << "Error: " << reply->errorString();
+        } else {
+        
+        qDebug() << reply->readAll();
+        }
+
+
+
+
+
 }
 
 void ValoracionController::selectAll(){
 	QJsonObject jsonObject;
 	jsonObject.insert("jsonrpc", "2.0");
-	jsonObject.insert("method", "call");
-	jsonObject.insert("id", "970248153");
-	
-	QJsonObject params;
-	params.insert("service","object");
-	params.insert("service","execute");
-	
-	QJsonArray args;
-	args.append("sge22");
-	args.append("2");
-	args.append("1234");
-	args.append("simarropop.valoracion");
-	args.append("search_read");
-	
-	QJsonArray emptyArray;
-	args.append(emptyArray);
-	
-	QJsonArray fields;
-	fields.append("id");
-	fields.append("estrellas");
-	fields.append("opinion");
-	
-	args.append(fields);
-	params.insert("args", args);
-	jsonObject.insert("params", params);
-	
-	QByteArray postData = QJsonDocument(jsonObject).toJson();
+        jsonObject.insert("method", "call");
+        jsonObject.insert("id", 970248153);
+        QJsonObject params;
+        params.insert("service", "object");
+        params.insert("method", "execute");
+        QJsonArray args;
+        args.append("sge22");
+        args.append(2);
+        args.append("1234");
+        args.append("simarropop.valoracion");
+        args.append("search_read");
+        QJsonArray emptyArray;
+        args.append(emptyArray);
+        QJsonArray fields;
+        fields.append("id");
+        fields.append("estrellas");
+        fields.append("opinion");
+        
+        args.append(fields);
+        params.insert("args", args);
+        jsonObject.insert("params", params);
+        
+        QByteArray postData = QJsonDocument(jsonObject).toJson();
 	QNetworkAccessManager *manager = new QNetworkAccessManager();
+	connect(manager,SIGNAL(finished(QNetworkReply *)),
+		this,SLOT(slotPeticion(QNetworkReply *)));
 	QNetworkRequest request;
 	request.setUrl(QUrl("http://192.168.8.226:8069/jsonrpc"));
-	request.setRawHeader(QByteArray("Content Type"), QByteArray("application/json"));
+	request.setRawHeader(QByteArray("Content-Type"), QByteArray("application/json"));
 	QNetworkReply *reply = manager->post(request, postData);
-	
-	connect(manager, SIGNAL(finished(QNetowrkReply *)),
-			this,SLOT(slotPeticion(QNetowrkReply *)));
 }
 
-//void ValoracionController::editarValoraciones(Valoracion* valoracion){
-	
-//}
+void ValoracionController::editarValoraciones(Valoracion *valoracion){
+	QJsonObject jsonObject;
+	jsonObject.insert("jsonrpc", "2.0");
+        jsonObject.insert("method", "call");
+        jsonObject.insert("id", 970248153);
+        QJsonObject params;
+        params.insert("service", "object");
+        params.insert("method", "execute");
+        QJsonArray args;
+        args.append("sge22");
+        args.append(2);
+        args.append("1234");
+        args.append("simarropop.valoracion");
+        args.append("write");
+        
+        QJsonObject fields;
+        QJsonArray idArray;
+        idArray.append(valoracion->id);
+        fields.insert("estrellas",valoracion->estrellas);
+        fields.insert("opinion",valoracion->opinion);
+  
+        args.append(idArray);
+        args.append(fields);
+        params.insert("args", args);
+        jsonObject.insert("params", params);
+        
+        QByteArray postData = QJsonDocument(jsonObject).toJson();
+	QNetworkAccessManager *manager = new QNetworkAccessManager();
+	connect(manager,SIGNAL(finished(QNetworkReply *)),
+		this,SLOT(slotPeticion(QNetworkReply *)));
+	QNetworkRequest request;
+	request.setUrl(QUrl("http://192.168.8.226:8069/jsonrpc"));
+	request.setRawHeader(QByteArray("Content-Type"), QByteArray("application/json"));
+	QNetworkReply *reply = manager->post(request, postData);
+	if (reply->error() != QNetworkReply::NoError) {
+            qDebug() << "Error: " << reply->errorString();
+        } else {
+        
+        qDebug() << reply->readAll();
+        }
+        
+}
 
 void ValoracionController::slotPeticion(QNetworkReply* reply){
 	if(reply->error() != QNetworkReply::NoError){
 		qDebug() << "ERROR: " << reply->errorString();
 	} else{
 		responseData = QJsonDocument::fromJson(reply->readAll());
+		qDebug()<<responseData;
 		emit peticionTerminada();
 		
 	}
