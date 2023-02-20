@@ -1,25 +1,24 @@
-#ifndef _DATABASE_H
-#define _DATABASE_H
-
-#include <QtSql/QSqlDatabase>
+#ifndef DATABASE_H
+#define DATABASE_H
 #include <QtSql/QSqlQuery>
-#include <QDebug>
+#include <QtSql/QSqlDatabase>
+#include <QString>
 
 class Database{
-
 public:
 	Database();
 	bool connect();
 	void close();
-	bool insert(const QString& name, const QString& correo, const QString& contrasenya);
-	bool update(const QString& name,const QString& correo, int id);
 	void select();
-	bool remove(int id);
-	QSqlQuery selectAll();
-	
+	void insertArticle();
 private:
 	QSqlDatabase db;
+	
+
+
 
 };
 
-#endif 
+
+
+#endif

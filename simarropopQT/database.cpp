@@ -1,55 +1,59 @@
 #include "database.h"
-#include <QVariant>
+#include <QDebug>
+#include <QStringList>
 
-Database::Database(){}
+Database::Database(){
+
+
+}
+
 
 bool Database::connect(){
+
+	qDebug() << "drivers instalados" << QSqlDatabase::drivers();
 	db = QSqlDatabase::addDatabase("QPSQL");
-	db.setHostName("192.168.8.226");
-	db.setDatabaseName("sge22");
+	db.setHostName("192.168.8.99");
+	db.setDatabaseName("jessica2dam");
 	db.setUserName("odoo");
 	db.setPassword("1234");
+	if(db.open()){
 	
-	if(!db.open()){
-		return false;
-	}
+	qDebug()<<"Base de datos abierta";
 	return true;
-}
-
-void Database::close(){
-	db.close();
-}
-
-bool Database::insert(const QString& name, const QString& correo, const QString& contrasenya){
-	QSqlQuery query;
-	query.prepare("INSERT INTO usuarios (nombre, correo, contrasenya) VALUES (:name, :correo, :contrasenya)");
-	query.bindValue(":name", QVariant(name));
-	query.bindValue(":correo", QVariant(correo));
-	query.bindValue(":contrasenya", QVariant(contrasenya));
-	return query.exec();
-}
-
-bool Database::update(const QString& name,const QString& correo, int id){
-	//, const QString& apellidos, const QString& ubicacion
-	QSqlQuery query;
-	query.prepare("UPDATE usuario SET name = :name, correo = :correo WHERE id = :id");
-	query.bindValue(":name", QVariant(name));
-	query.bindValue(":correo", QVariant(correo));
-	query.bindValue(":id", QVariant(id));
-	return query.exec();
-}
-
-void Database::select(){
-	QSqlQuery query;
-	qDebug()<<"dentro del select";
-	query.prepare("SELECT * FROM res_partner WHERE is_user = true");
-	query.exec();
-	
-	while(query.next())
-	{
-	qDebug() << "id: " << query.value(0).toString();
-	qDebug() << "name: " << query.value(1).toString();
 	}
+	return false;
+
+
+
+}
+void Database::close(){
+db.close();
+
+}
+void Database::select(){
+QSqlQuery query;
+query.prepare("SELECT * FROM simarropop_categoria");
+
+if(query.exec()){
+	qDebug()<<"works!!";
 }
 
+while(query.next()){
+		qDebug()<<"id: " << query.value(0).toString() << "name: "<<query.value(1).toString();
+		
+	}
+qDebug()<<"dentro";
 
+}
+
+void Database::insertArticle(){
+	QSqlQuery query = QSqlQuery(db);
+	query.prepare("INSERT INTO simarropop_categoria (name,descripcion_categoria) VALUES 			(:valor1,:valor2)");
+	query.bindValue(0, "prueba");
+	query.bindValue(1, "prueba");
+	if(query.exec()){
+		qDebug()<<"works!!";
+	}
+
+
+}

@@ -3,9 +3,8 @@ make clean
 rm *.pro
 qmake -project
 fichero=$( ls *.pro )
-echo "QT += widgets sql core" >> $fichero
-echo "LIBS += -lpq" >> $fichero
-echo "QT += network" >> $fichero
+echo "QT += widgets sql core network" >> $fichero
+echo "LIBS += -lpq " >> $fichero
 qmake
 make
 
