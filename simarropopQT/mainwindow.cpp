@@ -129,7 +129,7 @@ void MainWindow::slotPeticionArticuloTerminada(){
 }
 void MainWindow::slotDialogoArticulo(const QModelIndex &index){
 	int i =  index.row();
-	qDebug()<<listaArticulo.at(i)->name;
+	qDebug()<<listaArticulo.at(i)->titulo;
 	if (dArticuloEditar==NULL)
 		dArticuloEditar = new DArticuloEditar(listaArticulo.at(i));
 	

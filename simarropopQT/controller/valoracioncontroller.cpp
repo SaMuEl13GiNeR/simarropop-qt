@@ -100,7 +100,7 @@ void ValoracionController::eliminarValoracion(int id){
         args.append("sge22");
         args.append(2);
         args.append("1234");
-        args.append("simarropo.valoracion");
+        args.append("simarropop.valoracion");
         args.append("unlink");
         QJsonArray idArray;
         idArray.append(id);

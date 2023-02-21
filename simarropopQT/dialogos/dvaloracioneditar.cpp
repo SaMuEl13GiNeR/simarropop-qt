@@ -11,7 +11,7 @@ DValoracionEditar::DValoracionEditar(Valoracion *valoracionPasada,QWidget *paren
 	usuario_receptorLineEdit->insert(QString::number(valoracion->usuario_receptor));
 	connect(btnGuardar,SIGNAL(clicked()),
 			this,SLOT(slotGuardarDialogo()));
-			connect(btnCancelar,SIGNAL(clicked()),
+	connect(btnCancelar,SIGNAL(clicked()),
 			this,SLOT(slotCancelarDialogo()));
 		valCtrl = new ValoracionController();
 		connect(valCtrl,SIGNAL(peticionTerminada()),

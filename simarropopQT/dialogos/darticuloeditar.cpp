@@ -1,4 +1,3 @@
-
 #include "darticuloeditar.h"
 #include <QDebug>
 
@@ -7,12 +6,14 @@ DArticuloEditar::DArticuloEditar(Articulo *articuloPasado,QWidget *parent): QDia
 		btnCancelar->setText("Borrar");
 		artCtrl = new ArticuloController();
 		articulo = articuloPasado;
-		nameLineEdit->insert(articulo->name);
-		categoriaLineEdit->insert(QString::number(articulo->categoria));
-		precioLineEdit->insert(QString::number(articulo->precio));
+		tituloLineEdit->insert(articulo->titulo);
+		likesLineEdit->insert(QString::number(articulo->likes));
 		descripcionLineEdit->insert(articulo->descripcion);
-		ubicacionLineEdit->insert(articulo->ubicacion);
-		usuarioLineEdit->insert(QString::number(articulo->usuario));
+		precioLineEdit->insert(QString::number(articulo->precio));
+		estadoLineEdit->insert(articulo->estado);
+		usuario_compradorLineEdit->insert(QString::number(articulo->usuario_comprador));
+		usuario_vendedorLineEdit->insert(QString::number(articulo->usuario_vendedor));
+		categoriaLineEdit->insert(QString::number(articulo->categoria));
 		connect(btnGuardar,SIGNAL(clicked()),
 			this,SLOT(slotGuardarDialogo()));
 		connect(btnCancelar,SIGNAL(clicked()),
@@ -40,12 +41,14 @@ void DArticuloEditar::slotInsertarDialogo(){
 	QMessageBox::Yes | QMessageBox::No);
 	if (respuesta == QMessageBox::No) qDebug()<<"no se acepto el dialogo";
 	if(respuesta == QMessageBox::Yes){
-		articulo = new Articulo(nameLineEdit->displayText(),
-		categoriaLineEdit->displayText().toInt(),
-		precioLineEdit->displayText().toFloat(),
+		articulo = new Articulo(tituloLineEdit->displayText(),
+		likesLineEdit->displayText().toInt(),
 		descripcionLineEdit->displayText(),
-		ubicacionLineEdit->displayText(),
-		usuarioLineEdit->displayText().toInt());
+		precioLineEdit->displayText().toFloat(),
+		estadoLineEdit->displayText(),
+		usuario_compradorLineEdit->displayText().toInt(),
+		usuario_vendedorLineEdit->displayText().toInt(),
+		categoriaLineEdit->displayText().toInt());
 		
 		artCtrl->insertarArticulo(articulo);
 	
@@ -75,12 +78,14 @@ void DArticuloEditar::slotGuardarDialogo(){
 	QMessageBox::Yes | QMessageBox::No);
 	if (respuesta == QMessageBox::No) qDebug()<<"no se acepto el dialogo";
 	if(respuesta == QMessageBox::Yes){
-		articulo->name=nameLineEdit->displayText();
-		articulo->categoria=(categoriaLineEdit->displayText().toInt());
-		articulo->precio=(precioLineEdit->displayText().toFloat());
+		articulo->titulo=tituloLineEdit->displayText();
+		articulo->likes=(likesLineEdit->displayText().toInt());
 		articulo->descripcion=descripcionLineEdit->displayText();
-		articulo->ubicacion=ubicacionLineEdit->displayText();
-		articulo->usuario=(usuarioLineEdit->displayText().toInt());
+		articulo->precio=(precioLineEdit->displayText().toFloat());
+		articulo->estado=estadoLineEdit->displayText();
+		articulo->usuario_comprador=(usuario_compradorLineEdit->displayText().toInt());
+		articulo->usuario_vendedor=(usuario_vendedorLineEdit->displayText().toInt());
+		articulo->categoria=(categoriaLineEdit->displayText().toInt());
 		artCtrl->editarArticulo(articulo);
 		
 

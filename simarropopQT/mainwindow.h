@@ -8,7 +8,6 @@
 #include <QHBoxLayout>
 #include <QMainWindow>
 #include "dlogin.h"
-#include "database.h"
 #include <QDebug>
 #include <QtSql/QSqlQuery>
 #include <QtSql/QSqlDatabase>

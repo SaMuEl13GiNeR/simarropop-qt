@@ -21,12 +21,14 @@ qDebug()<<"se realiza el insert";
         
         QJsonObject fields;
      
-        fields.insert("name",articulo->name);
-        fields.insert("categoria",articulo->categoria);
-        fields.insert("precio",articulo->precio);
+        fields.insert("titulo",articulo->titulo);
+        fields.insert("likes",articulo->likes);
         fields.insert("descripcion",articulo->descripcion);
-        fields.insert("ubicacion",articulo->ubicacion);
-        fields.insert("usuario",articulo->usuario);
+        fields.insert("precio",articulo->precio);
+        fields.insert("estado",articulo->estado);
+        fields.insert("usuario_comprador",articulo->usuario_comprador);
+        fields.insert("usuario_vendedor",articulo->usuario_vendedor);
+        fields.insert("categoria",articulo->categoria);
         
         args.append(fields);
         params.insert("args", args);
@@ -71,13 +73,14 @@ void ArticuloController::editarArticulo(Articulo *articulo){
      
      	QJsonArray idArray;
         idArray.append(articulo->id);
-        fields.insert("name",articulo->name);
-        fields.insert("usuario",articulo->usuario);
-        fields.insert("categoria",articulo->categoria);
-        fields.insert("precio",articulo->precio);
+        fields.insert("titulo",articulo->titulo);
+        fields.insert("likes",articulo->likes);
         fields.insert("descripcion",articulo->descripcion);
-        fields.insert("ubicacion",articulo->ubicacion);
-        fields.insert("usuario",articulo->usuario);
+        fields.insert("precio",articulo->precio);
+        fields.insert("estado",articulo->estado);
+        fields.insert("usuario_comprador",articulo->usuario_comprador);
+        fields.insert("usuario_vendedor",articulo->usuario_vendedor);
+        fields.insert("categoria",articulo->categoria);
         
         args.append(idArray);
         args.append(fields);
@@ -163,12 +166,14 @@ qDebug()<<"Llego a selectall";
         args.append(emptyArray);
         QJsonArray fields;
         fields.append("id");
-        fields.append("name");
-        fields.append("categoria");
-        fields.append("precio");
+        fields.append("titulo");
+        fields.append("likes");
         fields.append("descripcion");
-        fields.append("ubicacion");
-        fields.append("usuario");
+        fields.append("precio");
+        fields.append("estado");
+        fields.append("usuario_comprador");
+        fields.append("usuario_vendedor");
+        fields.append("categoria");
         
         
         args.append(fields);
@@ -218,14 +223,17 @@ void ArticuloController::getArticulos(QVector<Articulo*> *listaArticulo){
             	for(int i = 0; i < result.size(); i++){
             		QJsonObject partner = result[i].toObject();
             		QJsonArray resultCategory = partner["categoria"].toArray();
-            		QJsonArray resultUsuario = partner["usuario"].toArray();
+            		QJsonArray resultUsuario_comprador = partner["usuario_comprador"].toArray();
+            		QJsonArray resultUsuario_vendedor = partner["usuario_vendedor"].toArray();
             		Articulo *articulo = new Articulo(partner["id"].toInt(),
-            		partner["name"].toString(),
-            		resultCategory.at(0).toInt(),
-            		partner["precio"].toDouble(),
+            		partner["titulo"].toString(),
+            		partner["likes"].toInt(),
             		partner["descripcion"].toString(),
-            		partner["ubicacion"].toString(),
-            		resultUsuario.at(0).toInt());
+            		partner["precio"].toDouble(),
+            		partner["estado"].toString(),
+            		resultUsuario_comprador.at(0).toInt(),
+            		resultUsuario_vendedor.at(0).toInt(),
+            		resultCategory.at(0).toInt());
             		listaArticulo->append(articulo);
             	}
             	qDebug()<<"tamaño despues de la peticion"<<listaArticulo->size();

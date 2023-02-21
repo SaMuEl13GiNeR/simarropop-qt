@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Name</string>
+    <string>Estrellas</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
@@ -44,12 +44,12 @@
     <rect>
      <x>120</x>
      <y>150</y>
-     <width>81</width>
-     <height>17</height>
+     <width>111</width>
+     <height>20</height>
     </rect>
    </property>
    <property name="text">
-    <string>Puntuacion</string>
+    <string>Usuario Emisor</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_4">
@@ -57,18 +57,18 @@
     <rect>
      <x>120</x>
      <y>200</y>
-     <width>67</width>
+     <width>121</width>
      <height>17</height>
     </rect>
    </property>
    <property name="text">
-    <string>Usuario</string>
+    <string>Usuario Receptor</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="estrellasLineEdit">
    <property name="geometry">
     <rect>
-     <x>230</x>
+     <x>280</x>
      <y>40</y>
      <width>191</width>
      <height>31</height>
@@ -78,7 +78,7 @@
   <widget class="QLineEdit" name="opinionLineEdit">
    <property name="geometry">
     <rect>
-     <x>230</x>
+     <x>280</x>
      <y>90</y>
      <width>191</width>
      <height>31</height>
@@ -88,7 +88,7 @@
   <widget class="QLineEdit" name="usuario_emisorLineEdit">
    <property name="geometry">
     <rect>
-     <x>230</x>
+     <x>280</x>
      <y>140</y>
      <width>191</width>
      <height>31</height>
@@ -98,7 +98,7 @@
   <widget class="QLineEdit" name="usuario_receptorLineEdit">
    <property name="geometry">
     <rect>
-     <x>230</x>
+     <x>280</x>
      <y>190</y>
      <width>191</width>
      <height>31</height>

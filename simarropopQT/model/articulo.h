@@ -7,15 +7,18 @@ class Articulo{
 
 public:
 	Articulo();
-	Articulo(int ,QString ,int,float,QString,QString,int);
-	Articulo(QString ,int,float,QString,QString,int);
+	Articulo(int, QString, int, QString, float, QString, int, int ,int );
+	Articulo(QString, int, QString, float, QString, int, int ,int );
+	
 	int id;
-	QString name;
-	int categoria;
-	float precio;
+	QString titulo;
+	int likes;
 	QString descripcion;
-	QString ubicacion;
-	int usuario;
+	float precio;
+	QString estado;
+	int usuario_comprador;
+	int usuario_vendedor;
+	int categoria;
 
 	
 	

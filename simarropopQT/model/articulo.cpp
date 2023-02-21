@@ -5,23 +5,27 @@ Articulo::Articulo()
 
 
 }
-Articulo::Articulo(int idPasado,QString namePasado,int categoriaPasado,float precioPasado,QString descripcionPasado,QString ubicacionPasado,int usuarioPasado)
+Articulo::Articulo(int idPasado, QString tituloPasado, int likesPasado, QString descripcionPasado, float precioPasado, QString estadoPasado, int usuario_compradorPasado, int usuario_vendedorPasado,int categoriaPasado)
 {
 	id = idPasado;
-	name = namePasado;
-	categoria = categoriaPasado;
-	precio = precioPasado;
+	titulo = tituloPasado;
+	likes = likesPasado;
 	descripcion = descripcionPasado;
-	ubicacion = ubicacionPasado;
-	usuario = usuarioPasado;
+	precio = precioPasado;
+	estado = estadoPasado;
+	usuario_comprador = usuario_compradorPasado;
+	usuario_vendedor = usuario_vendedorPasado;
+	categoria = categoriaPasado;
 }
-Articulo::Articulo(QString namePasado,int categoriaPasado,float precioPasado,QString descripcionPasado,QString ubicacionPasado,int usuarioPasado)
+Articulo::Articulo(QString tituloPasado, int likesPasado, QString descripcionPasado, float precioPasado, QString estadoPasado, int usuario_compradorPasado, int usuario_vendedorPasado,int categoriaPasado)
 {
-	name = namePasado;
-	categoria = categoriaPasado;
-	precio = precioPasado;
+	titulo = tituloPasado;
+	likes = likesPasado;
 	descripcion = descripcionPasado;
-	ubicacion = ubicacionPasado;
-	usuario = usuarioPasado;
+	precio = precioPasado;
+	estado = estadoPasado;
+	usuario_comprador = usuario_compradorPasado;
+	usuario_vendedor = usuario_vendedorPasado;
+	categoria = categoriaPasado;
 }
 
