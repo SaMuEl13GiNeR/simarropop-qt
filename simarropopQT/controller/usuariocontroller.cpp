@@ -1,8 +1,6 @@
 #include "usuariocontroller.h"
-UsuarioController::UsuarioController( )
-{
+UsuarioController::UsuarioController(){}
 
-}
 void UsuarioController::insertarUsuario(Usuario *usuario){
 	QJsonObject jsonObject;
 	jsonObject.insert("jsonrpc", "2.0");
@@ -22,7 +20,8 @@ void UsuarioController::insertarUsuario(Usuario *usuario){
      
         fields.insert("name",usuario->name);
         fields.insert("apellidos",usuario->apellidos);
-        fields.insert("ubicacion",usuario->ubicacion);
+        fields.insert("lon",usuario->longitud);
+        fields.insert("lat",usuario->latitud);
         fields.insert("correo",usuario->correo);
         fields.insert("contrasenya",usuario->contrasenya);
         
@@ -44,12 +43,8 @@ void UsuarioController::insertarUsuario(Usuario *usuario){
         
         qDebug() << reply->readAll();
         }
-
-
-
-
-
 }
+
 void UsuarioController::editarUsuario(Usuario *usuario){
 	QJsonObject jsonObject;
 	jsonObject.insert("jsonrpc", "2.0");
@@ -71,7 +66,8 @@ void UsuarioController::editarUsuario(Usuario *usuario){
         idArray.append(usuario->id);
         fields.insert("name",usuario->name);
         fields.insert("apellidos",usuario->apellidos);
-        fields.insert("ubicacion",usuario->ubicacion);
+        fields.insert("lon",usuario->longitud);
+        fields.insert("lat",usuario->latitud);
         fields.insert("correo",usuario->correo);
         fields.insert("contrasenya",usuario->contrasenya);
         
@@ -94,12 +90,8 @@ void UsuarioController::editarUsuario(Usuario *usuario){
         
         qDebug() << reply->readAll();
         }
-
-
-
-
-
 }
+
 void UsuarioController::eliminarUsuario(int id){
 	QJsonObject jsonObject;
 	jsonObject.insert("jsonrpc", "2.0");
@@ -134,11 +126,7 @@ void UsuarioController::eliminarUsuario(int id){
         
         qDebug() << reply->readAll();
         }
-
-
-
 }
-
 
 void UsuarioController::selectAll(){
 	QJsonObject jsonObject;
@@ -155,12 +143,18 @@ void UsuarioController::selectAll(){
         args.append("res.partner");
         args.append("search_read");
         QJsonArray emptyArray;
+        QJsonArray userArray;
+        userArray.append("is_user");
+        userArray.append("=");
+        userArray.append("true");
+        emptyArray.append(userArray);
         args.append(emptyArray);
         QJsonArray fields;
         fields.append("id");
         fields.append("name");
         fields.append("apellidos");
-        fields.append("ubicacion");
+        fields.append("lon");
+        fields.append("lat");
         fields.append("correo");
         fields.append("contrasenya");
         
@@ -178,36 +172,25 @@ void UsuarioController::selectAll(){
 	request.setRawHeader(QByteArray("Content-Type"), QByteArray("application/json"));
 	QNetworkReply *reply = manager->post(request, postData);
 	qDebug()<<" No Se ha realizado la peticion";
-	
-      
-	
-
-
-
 }
+
 void UsuarioController::slotPeticion(QNetworkReply* reply){
 qDebug()<<"Se ha realizado la peticion";
  if (reply->error() != QNetworkReply::NoError) {
             qDebug() << "Error: " << reply->errorString();
         } else {
-        	
             responseData =QJsonDocument::fromJson(reply->readAll());
             emit peticionTerminada();
-            
-               
         }
         reply->deleteLater();
-
 }
 
 void UsuarioController::getUsuarios(QVector<Usuario*> *listaUsuario){
 	for(int i = 0; i<listaUsuario->size();i++){
 			delete listaUsuario->at(i);
-		
 		}
-	listaUsuario->clear();
- 	QJsonObject jsonResponse = responseData.object();
-            
+		listaUsuario->clear();
+ 		QJsonObject jsonResponse = responseData.object();
             if(jsonResponse.contains("result")){
             	QJsonArray result = jsonResponse["result"].toArray();
             	for(int i = 0; i < result.size(); i++){
@@ -215,17 +198,14 @@ void UsuarioController::getUsuarios(QVector<Usuario*> *listaUsuario){
             		Usuario *usuario = new Usuario(partner["id"].toInt(),
             		partner["name"].toString(),
             		partner["apellidos"].toString(),
-            		partner["ubicacion"].toString(),
+            		partner["lon"].toDouble(),
+            		partner["lat"].toDouble(),
             		partner["correo"].toString(),
             		partner["contrasenya"].toString());
             		listaUsuario->append(usuario);
             	}
             	qDebug()<<listaUsuario->size();
-            	
-            
             }
-
-
 }
 
 

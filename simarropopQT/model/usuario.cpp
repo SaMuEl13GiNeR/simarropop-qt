@@ -5,20 +5,22 @@ Usuario::Usuario()
 
 
 }
-Usuario::Usuario(int idPasado,QString namePasado,QString apellidosPasado,QString ubicacionPasado,QString correoPasado,QString passwordPasado)
+Usuario::Usuario(int idPasado,QString namePasado,QString apellidosPasado, float longitudPasado, float latitudPasado, QString correoPasado,QString passwordPasado)
 {
 	id = idPasado;
 	name = namePasado;
 	apellidos = apellidosPasado;
-	ubicacion = ubicacionPasado;
+	longitud = longitudPasado;
+	latitud = latitudPasado;
 	correo = correoPasado;
 	contrasenya = passwordPasado;
 }
-Usuario::Usuario(QString namePasado,QString apellidosPasado,QString ubicacionPasado,QString correoPasado,QString passwordPasado)
+Usuario::Usuario(QString namePasado, QString apellidosPasado, float longitudPasado, float latitudPasado, QString correoPasado, QString passwordPasado)
 {
 	name = namePasado;
 	apellidos = apellidosPasado;
-	ubicacion = ubicacionPasado;
+	longitud = longitudPasado;
+	latitud = latitudPasado;
 	correo = correoPasado;
 	contrasenya = passwordPasado;
 }

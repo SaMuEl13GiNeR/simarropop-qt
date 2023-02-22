@@ -25,6 +25,7 @@ DArticuloEditar::DArticuloEditar(Articulo *articuloPasado,QWidget *parent): QDia
 
 DArticuloEditar::DArticuloEditar(QWidget *parent): QDialog(parent){
 		setupUi(this);
+		
 		artCtrl = new ArticuloController();
 		connect(btnGuardar,SIGNAL(clicked()),
 			this,SLOT(slotInsertarDialogo()));
@@ -51,12 +52,7 @@ void DArticuloEditar::slotInsertarDialogo(){
 		categoriaLineEdit->displayText().toInt());
 		
 		artCtrl->insertarArticulo(articulo);
-	
-		
-	
 	}
-
-
 }
 void DArticuloEditar::slotBorrarDialogo(){
 	int respuesta = QMessageBox::warning(this,QString("Esta seguro que quieres borrar?"),
@@ -65,10 +61,7 @@ void DArticuloEditar::slotBorrarDialogo(){
 	if (respuesta == QMessageBox::No) qDebug()<<"no se acepto el dialogo";
 	if(respuesta == QMessageBox::Yes){
 		artCtrl->eliminarArticulo(articulo->id);
-		
-
 	}
-
 }
 
 void DArticuloEditar::slotGuardarDialogo(){
@@ -87,26 +80,18 @@ void DArticuloEditar::slotGuardarDialogo(){
 		articulo->usuario_vendedor=(usuario_vendedorLineEdit->displayText().toInt());
 		articulo->categoria=(categoriaLineEdit->displayText().toInt());
 		artCtrl->editarArticulo(articulo);
-		
-
 	}
-
-
 }
+
 void DArticuloEditar::slotCancelarDialogo(){
-	qDebug()<<"se cancela el dialogo";
 	this->reject();
+}
 
-}
-void DArticuloEditar::closeEvent(QCloseEvent *event)
-{
-	qDebug()<<"se cierra el dialogo";
+void DArticuloEditar::closeEvent(QCloseEvent *event){
        this->reject();
-  
-    
 }
+
 void DArticuloEditar::slotEmitirAccept(){
-	
 		this->accept();
 }
 

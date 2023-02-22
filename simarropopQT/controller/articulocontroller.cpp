@@ -188,35 +188,25 @@ qDebug()<<"Llego a selectall";
 	request.setUrl(QUrl("http://192.168.8.226:8069/jsonrpc"));
 	request.setRawHeader(QByteArray("Content-Type"), QByteArray("application/json"));
 	QNetworkReply *reply = manager->post(request, postData);
-	
-	
-
-
-
 }
+
 void ArticuloController::slotPeticion(QNetworkReply* reply){
  if (reply->error() != QNetworkReply::NoError) {
             qDebug() << "Error: " << reply->errorString();
         } else  if (reply->isFinished()){
-        	
             responseData =QJsonDocument::fromJson(reply->readAll());
             emit peticionTerminada();
-            
-               
         }
         reply->deleteLater();
-
 }
 
 void ArticuloController::getArticulos(QVector<Articulo*> *listaArticulo){
 		for(int i = 0; i<listaArticulo->size();i++){
 			delete listaArticulo->at(i);
-		
 		}
 		listaArticulo->clear();
 		qDebug()<<"tamaño despues del clear:"<<listaArticulo->size();
  		QJsonObject jsonResponse = responseData.object();
-            
             if(jsonResponse.contains("result")){
             	QJsonArray result = jsonResponse["result"].toArray();
             	qDebug()<<"result size:"<<result.size();

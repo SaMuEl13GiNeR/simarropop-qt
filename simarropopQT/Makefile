@@ -186,7 +186,6 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		simarropopQT.pro dlogin.h \
 		mainwindow.h \
-		ui_dchartartcategoria.h \
 		controller/articulocontroller.h \
 		controller/usuariocontroller.h \
 		controller/valoracioncontroller.h \
@@ -404,7 +403,7 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents dlogin.h mainwindow.h ui_dchartartcategoria.h controller/articulocontroller.h controller/usuariocontroller.h controller/valoracioncontroller.h dialogos/darticuloeditar.h dialogos/dusuario.h dialogos/dvaloracioneditar.h model/articulo.h model/usuario.h model/valoracion.h modelotabla/modelotablaarticulo.h modelotabla/modelotablausuario.h modelotabla/modelotablavaloracion.h $(DISTDIR)/
+	$(COPY_FILE) --parents dlogin.h mainwindow.h controller/articulocontroller.h controller/usuariocontroller.h controller/valoracioncontroller.h dialogos/darticuloeditar.h dialogos/dusuario.h dialogos/dvaloracioneditar.h model/articulo.h model/usuario.h model/valoracion.h modelotabla/modelotablaarticulo.h modelotabla/modelotablausuario.h modelotabla/modelotablavaloracion.h $(DISTDIR)/
 	$(COPY_FILE) --parents dlogin.cpp main.cpp mainwindow.cpp controller/articulocontroller.cpp controller/usuariocontroller.cpp controller/valoracioncontroller.cpp dialogos/darticuloeditar.cpp dialogos/dusuario.cpp dialogos/dvaloracioneditar.cpp model/articulo.cpp model/usuario.cpp model/valoracion.cpp modelotabla/modelotablaarticulo.cpp modelotabla/modelotablausuario.cpp modelotabla/modelotablavaloracion.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents dlogin.ui mainwindow.ui dialogos/darticuloeditar.ui dialogos/dusuario.ui dialogos/dvaloracioneditar.ui $(DISTDIR)/
 

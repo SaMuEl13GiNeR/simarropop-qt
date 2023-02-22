@@ -8,7 +8,8 @@ DUsuario::DUsuario(Usuario *usuarioPasado,QWidget *parent): QDialog(parent){
 		usuario = usuarioPasado;
 		nameLineEdit->insert(usuario->name);
 		apellidosLineEdit->insert(usuario->apellidos);
-		ubicacionLineEdit->insert(usuario->ubicacion);
+		longitudLineEdit->insert(QString::number(usuario->longitud));
+		latitudLineEdit->insert(QString::number(usuario->latitud));
 		correoLineEdit->insert(usuario->correo);
 		contrasenyaLineEdit->insert(usuario->contrasenya);
 		connect(btnGuardar,SIGNAL(clicked()),
@@ -41,7 +42,8 @@ void DUsuario::slotInsertarDialogo(){
 	if(respuesta == QMessageBox::Yes){
 		usuario = new Usuario(nameLineEdit->displayText(),
 		apellidosLineEdit->displayText(),
-		ubicacionLineEdit->displayText(),
+		longitudLineEdit->displayText().toFloat(),
+		latitudLineEdit->displayText().toFloat(),
 		correoLineEdit->displayText(),
 		contrasenyaLineEdit->displayText());
 		
@@ -58,7 +60,8 @@ void DUsuario::slotGuardarDialogo(){
 	if(respuesta == QMessageBox::Yes){
 		usuario->name=nameLineEdit->displayText();
 		usuario->apellidos=apellidosLineEdit->displayText();
-		usuario->ubicacion=ubicacionLineEdit->displayText();
+		usuario->longitud=longitudLineEdit->displayText().toFloat();
+		usuario->latitud=latitudLineEdit->displayText().toFloat();
 		usuario->correo=correoLineEdit->displayText();
 		usuario->contrasenya=contrasenyaLineEdit->displayText();
 		usuCtrl->editarUsuario(usuario);

@@ -5,7 +5,7 @@ ModeloTablaUsuario::ModeloTablaUsuario(QVector <Usuario*> *listaUsuarioPasada){
 }
 
 int ModeloTablaUsuario::columnCount(const QModelIndex &)const{
-	return 6;
+	return 7;
 }
 
 int ModeloTablaUsuario::rowCount(const QModelIndex &)const{
@@ -34,14 +34,18 @@ QVariant ModeloTablaUsuario::data(const QModelIndex &index, int role)const{
 			
 			break;
 		case 3:
-			cadena=listaUsuario->at(row)->ubicacion;
+			cadena=QString::number(listaUsuario->at(row)->longitud);
 			
 			break;
 		case 4:
-			cadena=listaUsuario->at(row)->correo;
+			cadena=QString::number(listaUsuario->at(row)->latitud);
 			
 			break;
 		case 5:
+			cadena=listaUsuario->at(row)->correo;
+			
+			break;
+		case 6:
 			cadena=listaUsuario->at(row)->contrasenya;
 			
 			break;
@@ -56,9 +60,10 @@ QVariant ModeloTablaUsuario::headerData(int section,Qt::Orientation orientation,
 				case 0: return QString("ID ");
 				case 1: return QString("Name ");
 				case 2: return QString("apellidos ");
-				case 3: return QString("ubicacion ");
-				case 4: return QString("correo ");
-				case 5: return QString("contrasenya ");
+				case 3: return QString("longitud ");
+				case 4: return QString("latitud ");
+				case 5: return QString("correo ");
+				case 6: return QString("contrasenya ");
 			}
 		}
 		if(orientation==Qt::Vertical){

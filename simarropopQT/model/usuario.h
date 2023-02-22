@@ -8,12 +8,13 @@ class Usuario{
 
 public:
 	Usuario();
-	Usuario(int ,QString ,QString,QString,QString,QString);
-	Usuario(QString ,QString,QString,QString,QString);
+	Usuario(int ,QString ,QString, float, float, QString, QString);
+	Usuario(QString ,QString, float, float, QString, QString);
 	int id;
 	QString name;
 	QString apellidos;
-	QString ubicacion;
+	float longitud;
+	float latitud;
 	QString correo;
 	QString contrasenya;
 

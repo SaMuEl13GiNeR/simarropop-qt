@@ -20,7 +20,7 @@ QVariant ModeloTablaValoracion::data(const QModelIndex &index, int role)const{
 		
 	}
 	if(role !=Qt::DisplayRole) return QVariant();
-	QString cadena("hola");
+	QString cadena("");
 	switch(col){
 		case 0:
 			cadena=QString::number(listaValoracion->at(row)->id);
@@ -63,7 +63,6 @@ QVariant ModeloTablaValoracion::headerData(int section,Qt::Orientation orientati
 				
 			}
 		}
-		QString cadena("Bola ");
 		if(orientation==Qt::Vertical){
 		return QVariant(QString::number(section));
 		
