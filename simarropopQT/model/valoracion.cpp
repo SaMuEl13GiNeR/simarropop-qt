@@ -17,4 +17,3 @@ Valoracion::Valoracion(int estrellasPasado, QString opinionPasado, int usuario_e
 }
 
 
-

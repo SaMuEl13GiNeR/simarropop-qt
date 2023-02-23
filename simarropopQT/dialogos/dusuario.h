@@ -1,15 +1,14 @@
-
-#ifndef DUSUARIO_H
-#define DUSUARIO_H
+#ifndef _DUSUARIO_H
+#define _DUSUARIO_H
 #include "ui_dusuario.h"
 
 #include <QVector>
 #include <QDialog>
 #include <QHBoxLayout>
-#include "model/usuario.h"
-#include "controller/usuariocontroller.h"
 #include <QMessageBox>
 #include <QCloseEvent>
+#include "model/usuario.h"
+#include "controller/usuariocontroller.h"
 
 class DUsuario : public QDialog, public Ui::DUsuario {
 Q_OBJECT
@@ -27,7 +26,6 @@ public slots:
 	void slotInsertarDialogo();
 	void slotBorrarDialogo();
 	void slotEmitirAccept();
-
 
 };
 

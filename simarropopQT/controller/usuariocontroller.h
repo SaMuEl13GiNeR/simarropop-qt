@@ -25,13 +25,10 @@ public:
 	QJsonDocument responseData;
 	
 public slots:
-
 	void slotPeticion(QNetworkReply*);
+	
 signals:
     	void peticionTerminada();
-	
-	
-
 };
 
 #endif

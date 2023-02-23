@@ -20,12 +20,6 @@ public:
 	int usuario_vendedor;
 	int categoria;
 
-	
-	
-private:
-	
-
-
 };
 
 #endif

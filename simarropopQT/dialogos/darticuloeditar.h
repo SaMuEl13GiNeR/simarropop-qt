@@ -1,16 +1,14 @@
-
-#ifndef DARTICULOEDITAR_H
-#define DARTICULOEDITAR_H
+#ifndef _DARTICULOEDITAR_H
+#define _DARTICULOEDITAR_H
 #include "ui_darticuloeditar.h"
 
 #include <QVector>
 #include <QDialog>
 #include <QHBoxLayout>
-#include "model/articulo.h"
-#include "controller/articulocontroller.h"
 #include <QMessageBox>
 #include <QCloseEvent>
-
+#include "model/articulo.h"
+#include "controller/articulocontroller.h"
 
 class DArticuloEditar : public QDialog, public Ui::DArticuloEditar {
 Q_OBJECT

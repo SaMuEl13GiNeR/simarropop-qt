@@ -1,26 +1,23 @@
 #include "darticuloeditar.h"
-#include <QDebug>
 
 DArticuloEditar::DArticuloEditar(Articulo *articuloPasado,QWidget *parent): QDialog(parent){
 		setupUi(this);
-		btnCancelar->setText("Borrar");
 		artCtrl = new ArticuloController();
 		articulo = articuloPasado;
-		tituloLineEdit->insert(articulo->titulo);
-		likesLineEdit->insert(QString::number(articulo->likes));
-		descripcionLineEdit->insert(articulo->descripcion);
-		precioLineEdit->insert(QString::number(articulo->precio));
-		estadoLineEdit->insert(articulo->estado);
-		usuario_compradorLineEdit->insert(QString::number(articulo->usuario_comprador));
-		usuario_vendedorLineEdit->insert(QString::number(articulo->usuario_vendedor));
-		categoriaLineEdit->insert(QString::number(articulo->categoria));
+		leTitulo->insert(articulo->titulo);
+		leLikes->insert(QString::number(articulo->likes));
+		leDescripcion->insert(articulo->descripcion);
+		lePrecio->insert(QString::number(articulo->precio));
+		leEstado->insert(articulo->estado);
+		leUsuario_comprador->insert(QString::number(articulo->usuario_comprador));
+		leUsuario_vendedor->insert(QString::number(articulo->usuario_vendedor));
+		leCategoria->insert(QString::number(articulo->categoria));
 		connect(btnGuardar,SIGNAL(clicked()),
 			this,SLOT(slotGuardarDialogo()));
 		connect(btnCancelar,SIGNAL(clicked()),
 			this,SLOT(slotBorrarDialogo()));
 		connect(artCtrl,SIGNAL(peticionTerminada()),
 			this,SLOT(slotEmitirAccept()));
-	
 }
 
 DArticuloEditar::DArticuloEditar(QWidget *parent): QDialog(parent){
@@ -37,49 +34,50 @@ DArticuloEditar::DArticuloEditar(QWidget *parent): QDialog(parent){
 }
 void DArticuloEditar::slotInsertarDialogo(){
 	
-	int respuesta = QMessageBox::warning(this,QString("Esta seguro que quieres guardar?"),
+	int respuesta = QMessageBox::warning(this,QString("Vas a insertar el articulo en la bd"),
 	QString("¿Seguro?"),
 	QMessageBox::Yes | QMessageBox::No);
-	if (respuesta == QMessageBox::No) qDebug()<<"no se acepto el dialogo";
+	if (respuesta == QMessageBox::No);
 	if(respuesta == QMessageBox::Yes){
-		articulo = new Articulo(tituloLineEdit->displayText(),
-		likesLineEdit->displayText().toInt(),
-		descripcionLineEdit->displayText(),
-		precioLineEdit->displayText().toFloat(),
-		estadoLineEdit->displayText(),
-		usuario_compradorLineEdit->displayText().toInt(),
-		usuario_vendedorLineEdit->displayText().toInt(),
-		categoriaLineEdit->displayText().toInt());
+		articulo = new Articulo(leTitulo->displayText(),
+		leLikes->displayText().toInt(),
+		leDescripcion->displayText(),
+		lePrecio->displayText().toFloat(),
+		leEstado->displayText(),
+		leUsuario_comprador->displayText().toInt(),
+		leUsuario_vendedor->displayText().toInt(),
+		leCategoria->displayText().toInt());
 		
 		artCtrl->insertarArticulo(articulo);
-	}
-}
-void DArticuloEditar::slotBorrarDialogo(){
-	int respuesta = QMessageBox::warning(this,QString("Esta seguro que quieres borrar?"),
-	QString("¿Seguro?"),
-	QMessageBox::Yes | QMessageBox::No);
-	if (respuesta == QMessageBox::No) qDebug()<<"no se acepto el dialogo";
-	if(respuesta == QMessageBox::Yes){
-		artCtrl->eliminarArticulo(articulo->id);
 	}
 }
 
 void DArticuloEditar::slotGuardarDialogo(){
 	
-	int respuesta = QMessageBox::warning(this,QString("Esta seguro que quieres guardar?"),
+	int respuesta = QMessageBox::warning(this,QString("Vas a modificar el usuario en la bd"),
 	QString("¿Seguro?"),
 	QMessageBox::Yes | QMessageBox::No);
-	if (respuesta == QMessageBox::No) qDebug()<<"no se acepto el dialogo";
+	if (respuesta == QMessageBox::No);
 	if(respuesta == QMessageBox::Yes){
-		articulo->titulo=tituloLineEdit->displayText();
-		articulo->likes=(likesLineEdit->displayText().toInt());
-		articulo->descripcion=descripcionLineEdit->displayText();
-		articulo->precio=(precioLineEdit->displayText().toFloat());
-		articulo->estado=estadoLineEdit->displayText();
-		articulo->usuario_comprador=(usuario_compradorLineEdit->displayText().toInt());
-		articulo->usuario_vendedor=(usuario_vendedorLineEdit->displayText().toInt());
-		articulo->categoria=(categoriaLineEdit->displayText().toInt());
+		articulo->titulo=leTitulo->displayText();
+		articulo->likes=(leLikes->displayText().toInt());
+		articulo->descripcion=leDescripcion->displayText();
+		articulo->precio=(lePrecio->displayText().toFloat());
+		articulo->estado=leEstado->displayText();
+		articulo->usuario_comprador=(leUsuario_comprador->displayText().toInt());
+		articulo->usuario_vendedor=(leUsuario_vendedor->displayText().toInt());
+		articulo->categoria=(leCategoria->displayText().toInt());
 		artCtrl->editarArticulo(articulo);
+	}
+}
+
+void DArticuloEditar::slotBorrarDialogo(){
+	int respuesta = QMessageBox::warning(this,QString("Vas a borrar el usuario de la bd"),
+	QString("¿Seguro?"),
+	QMessageBox::Yes | QMessageBox::No);
+	if (respuesta == QMessageBox::No);
+	if(respuesta == QMessageBox::Yes){
+		artCtrl->eliminarArticulo(articulo->id);
 	}
 }
 

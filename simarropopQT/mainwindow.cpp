@@ -1,6 +1,4 @@
-
 #include "mainwindow.h"
-#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent){
 		setupUi(this);
@@ -10,29 +8,31 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent){
 	modeloTablaArticulo=NULL;
 	modeloTablaUsuario=NULL;
 	modeloTablaValoracion=NULL;
-	connect(btnActTablas,SIGNAL(clicked()),
+	connect(btnActTabs,SIGNAL(clicked()),
 			this,SLOT(slotActualizarTablas()));
-//instanciamos los dialogos a null
+
+
 	dValoracionEditar = NULL;
 	dArticuloEditar = NULL;
 	dUsuario = NULL;
-//instanciamos tablas
-	tabSimarropop->clear();
-	tablaValoracion = new QTableView();
-	tablaArticulo = new QTableView();
-	tablaUsuario = new QTableView();
 
-//instanciamos controllers	
+
+	tabSimarropop->clear();
+	tabValoracion = new QTableView();
+	tabArticulo = new QTableView();
+	tabUsuario = new QTableView();
+
+
 	valCtrl = new ValoracionController();
 	valCtrl->selectAll();
 	connect(valCtrl,SIGNAL(peticionTerminada()),
 			this,SLOT(slotPeticionValoracionTerminada()));
-			
+				
 	artCtrl = new ArticuloController();	
 	artCtrl->selectAll();
 	connect(artCtrl,SIGNAL(peticionTerminada()),
 			this,SLOT(slotPeticionArticuloTerminada()));
-	
+			
 	usuCtrl = new UsuarioController();	
 	usuCtrl->selectAll();
 	connect(usuCtrl,SIGNAL(peticionTerminada()),
@@ -41,59 +41,49 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent){
 
 void MainWindow::slotActualizarTablas(){
 	artCtrl->selectAll();
-
-
+	valCtrl->selectAll();
+	usuCtrl->selectAll();
 }
-//MANIPULACION DE TABLA VALORACION
+
+// conjunto tab valoracion
 void MainWindow::crearTablaValoracion(){
 	modeloTablaValoracion = new ModeloTablaValoracion(&listaValoracion);
-	tablaValoracion->setModel(modeloTablaValoracion);
-	connect(tablaValoracion,SIGNAL(doubleClicked(const QModelIndex &)),
+	tabValoracion->setModel(modeloTablaValoracion);
+	connect(tabValoracion,SIGNAL(doubleClicked(const QModelIndex &)),
 			this,SLOT(slotDialogoValoracion(const QModelIndex &)));
-	tabSimarropop->addTab(tablaValoracion,"Valoraciones");
-	
-
-
+	tabSimarropop->addTab(tabValoracion,"Valoraciones");
 }
+
 void MainWindow::slotPeticionValoracionTerminada(){
 	valCtrl->getValoraciones(&listaValoracion);
 	if(modeloTablaValoracion==NULL){
-		qDebug()<<"entro en slotPeticionValoracionTerminada primero, tamaño lista valoracion:"<<listaValoracion.size();
 		crearTablaValoracion();
 	}else
-		qDebug()<<"entro en slotPeticionValoracionTerminada, tamaño lista valoracion:"<<listaValoracion.size();
-
 	modeloTablaValoracion->tablaModificada();
-
 }
+
 void MainWindow::slotDialogoValoracion(const QModelIndex &index){
 	int i =  index.row();
-	qDebug()<<listaValoracion.at(i)->estrellas;
 	if(dValoracionEditar==NULL){
 		dValoracionEditar = new DValoracionEditar(listaValoracion.at(i));
 		}
 		dValoracionEditar->show();
 		connect(dValoracionEditar,SIGNAL(finished(int)),
 		this,SLOT(slotDialogoValoracionFinalizado(int)));
-
-
 }
+
 void MainWindow::slotDialogoValoracionFinalizado(int result) {
 	if(result==QDialog::Accepted){
 		dValoracionEditar=NULL;
 		delete dValoracionEditar;
 		valCtrl->selectAll();
-	
 	}
 	if(result==QDialog::Rejected){
 		dValoracionEditar=NULL;
 		delete dValoracionEditar;
-
 	}
-
-
-
 }
+
 void MainWindow::slotDialogoValoracionInsertar(){
 	if(dValoracionEditar==NULL){
 		dValoracionEditar = new DValoracionEditar();
@@ -104,58 +94,46 @@ void MainWindow::slotDialogoValoracionInsertar(){
 		this,SLOT(slotDialogoValoracionFinalizado(int)));
 
 }
-//MANIPULACION TABLA ARTICULO
+// fin valoracion 
+
+// conjunto tab articulo
 void MainWindow::crearTablaArticulo(){
-
 	modeloTablaArticulo = new ModeloTablaArticulo(&listaArticulo);
-	tablaArticulo->setModel(modeloTablaArticulo);
-	connect(tablaArticulo,SIGNAL(doubleClicked(const QModelIndex &)),
+	tabArticulo->setModel(modeloTablaArticulo);
+	connect(tabArticulo,SIGNAL(doubleClicked(const QModelIndex &)),
 			this,SLOT(slotDialogoArticulo(const QModelIndex &)));
-	tabSimarropop->addTab(tablaArticulo,"Articulos");
-	
-
-
+	tabSimarropop->addTab(tabArticulo,"Articulos");
 }
+
 void MainWindow::slotPeticionArticuloTerminada(){
 	artCtrl->getArticulos(&listaArticulo);
 	if(modeloTablaArticulo==NULL){
-		qDebug()<<"entro en slotPeticionArticuloTerminada primero, tamaño lista articulo:"<<listaArticulo.size();
 		crearTablaArticulo();
 	}else
-		qDebug()<<"entro en slotPeticionArticuloTerminada, tamaño lista articulo:"<<listaArticulo.size();
-
 	modeloTablaArticulo->tablaModificada();
-		
 }
+
 void MainWindow::slotDialogoArticulo(const QModelIndex &index){
 	int i =  index.row();
-	qDebug()<<listaArticulo.at(i)->titulo;
 	if (dArticuloEditar==NULL)
 		dArticuloEditar = new DArticuloEditar(listaArticulo.at(i));
-	
 	dArticuloEditar->show();
 	connect(dArticuloEditar,SIGNAL(finished(int)),
 		this,SLOT(slotDialogoArticuloFinalizado(int)));
-
-
 }
+
 void MainWindow::slotDialogoArticuloFinalizado(int result) {
 	if(result==QDialog::Accepted){
 		dArticuloEditar=NULL;
 		delete dArticuloEditar;
-		qDebug()<<"se acepta el dialogo";
 		artCtrl->selectAll();
-	
 	}
 	if(result==QDialog::Rejected){
-		qDebug()<<"se reject el dialogo";
 		dArticuloEditar=NULL;
 		delete dArticuloEditar;
-
 	}
-
-	
 }
+
 void MainWindow::slotDialogoArticuloInsertar(){
 if(dArticuloEditar==NULL){
 		dArticuloEditar = new DArticuloEditar();
@@ -166,35 +144,27 @@ if(dArticuloEditar==NULL){
 		this,SLOT(slotDialogoArticuloFinalizado(int)));
 
 }
+// fin articulo
 
-//MANIPULACION DE TABLA USUARIO
+// conjunto tab usuario
 void MainWindow::crearTablaUsuario(){
 	modeloTablaUsuario = new ModeloTablaUsuario(&listaUsuario);
-	tablaUsuario->setModel(modeloTablaUsuario);
-	connect(tablaUsuario,SIGNAL(doubleClicked(const QModelIndex &)),
+	tabUsuario->setModel(modeloTablaUsuario);
+	connect(tabUsuario,SIGNAL(doubleClicked(const QModelIndex &)),
 			this,SLOT(slotDialogoUsuario(const QModelIndex &)));
-	tabSimarropop->addTab(tablaUsuario,"Usuarios");
-	
-
-
+	tabSimarropop->addTab(tabUsuario,"Usuarios");
 }
 
 void MainWindow::slotPeticionUsuarioTerminada(){
 	usuCtrl->getUsuarios(&listaUsuario);
 	if(modeloTablaUsuario==NULL){
-		qDebug()<<"entro en slotPeticionUsuarioTerminada primero, tamaño lista usuario:"<<listaUsuario.size();
 		crearTablaUsuario();
 	}else
-		qDebug()<<"entro en slotPeticionUsuarioTerminada, tamaño lista usuario:"<<listaUsuario.size();
-
 	modeloTablaUsuario->tablaModificada();
-		
-
 }
 
 void MainWindow::slotDialogoUsuario(const QModelIndex &index){
 	int i =  index.row();
-	qDebug()<<listaUsuario.at(i)->name;
 	if(dUsuario==NULL){
 		dUsuario = new DUsuario(listaUsuario.at(i));
 		}
@@ -202,23 +172,17 @@ void MainWindow::slotDialogoUsuario(const QModelIndex &index){
 	
 	connect(dUsuario,SIGNAL(finished(int)),
 		this,SLOT(slotDialogoUsuarioFinalizado(int)));
-
-
 }
 
 void MainWindow::slotDialogoUsuarioFinalizado(int result){
 	if(result==QDialog::Accepted){
 		dUsuario=NULL;
 		delete dUsuario;
-		qDebug()<<"se acepta el dialogo";
 		usuCtrl->selectAll();
-	
 	}
 	if(result==QDialog::Rejected){
-		qDebug()<<"se reject el dialogo";
 		dUsuario=NULL;
 		delete dUsuario;
-
 	}
 }
 
@@ -227,15 +191,11 @@ if(dUsuario==NULL){
 		dUsuario = new DUsuario();
 		}
 		dUsuario->show();
-	
 	connect(dUsuario,SIGNAL(finished(int)),
 		this,SLOT(slotDialogoUsuarioFinalizado(int)));
-
 }
+// fin usuario
 
-
-
-//CREACION DE ACTIONS
 void MainWindow::crearActions(){
 	accionInsertUsuario = new QAction("Insertar Usuario");
 	connect(accionInsertUsuario,SIGNAL(triggered()),
@@ -248,14 +208,11 @@ void MainWindow::crearActions(){
 	connect(accionInsertValoracion,SIGNAL(triggered()),
 		this,SLOT(slotDialogoValoracionInsertar()));
 }
-//CREACION DE MENUS
+
 void MainWindow::crearMenus(){
 	QMenu * menuInsertar = menuBar()->addMenu("Insertar Datos");
 	menuInsertar->addAction(accionInsertUsuario);
 	menuInsertar->addAction(accionInsertArticulo);
 	menuInsertar->addAction(accionInsertValoracion);
-
 }
-
-
 

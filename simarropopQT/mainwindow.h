@@ -1,28 +1,27 @@
-
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef _MAINWINDOW_H
+#define _MAINWINDOW_H
 #include "ui_mainwindow.h"
 
 #include <QVector>
 #include <QMainWindow>
 #include <QHBoxLayout>
+#include <QVBoxLayout>
 #include <QMainWindow>
-#include "dlogin.h"
 #include <QDebug>
-#include <QtSql/QSqlQuery>
-#include <QtSql/QSqlDatabase>
 #include <QMenuBar>
 #include <QAction>
-#include <QJsonObject>
-#include <QJsonArray>
-#include <QJsonDocument>
-#include <QtNetwork/QNetworkRequest>
-#include <QtNetwork/QNetworkReply>
-#include <QtNetwork/QNetworkAccessManager>
-#include <QByteArray>
 #include <QModelIndex>
 #include <QAbstractTableModel>
 #include <QTableView>
+#include <QtSql/QSqlQuery>
+#include <QtSql/QSqlDatabase>
+#include <QtNetwork/QNetworkRequest>
+#include <QtNetwork/QNetworkReply>
+#include <QtNetwork/QNetworkAccessManager>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QByteArray>
 #include "model/valoracion.h"
 #include "model/articulo.h"
 #include "model/usuario.h"
@@ -37,27 +36,26 @@
 #include "dialogos/dusuario.h"
 
 
-
 class MainWindow : public QMainWindow, public Ui::MainWindow {
 Q_OBJECT
 
 public:
 	MainWindow(QWidget *parent = NULL);
-	QTableView *tablaValoracion;
+	QTableView *tabValoracion;
 	ModeloTablaValoracion *modeloTablaValoracion;
 	ValoracionController *valCtrl;
 	void crearTablaValoracion();
 	QVector <Valoracion*> listaValoracion;
 	DValoracionEditar *dValoracionEditar;
 	
-	QTableView *tablaArticulo;
+	QTableView *tabArticulo;
 	ModeloTablaArticulo *modeloTablaArticulo;
 	ArticuloController *artCtrl;
 	void crearTablaArticulo();
 	QVector <Articulo*> listaArticulo;
 	DArticuloEditar *dArticuloEditar;
 	
-	QTableView *tablaUsuario;
+	QTableView *tabUsuario;
 	ModeloTablaUsuario *modeloTablaUsuario;
 	UsuarioController *usuCtrl;
 	void crearTablaUsuario();
@@ -74,12 +72,10 @@ public slots:
 	void slotDialogoValoracionInsertar();
 	void slotDialogoValoracionFinalizado(int );
 	
-	
 	void slotDialogoArticulo(const QModelIndex &);
 	void slotPeticionArticuloTerminada();
 	void slotDialogoArticuloInsertar();
 	void slotDialogoArticuloFinalizado(int );
-	
 	
 	void slotDialogoUsuario(const QModelIndex &);
 	void slotPeticionUsuarioTerminada();
@@ -87,7 +83,6 @@ public slots:
 	void slotDialogoUsuarioFinalizado(int );
 	
 	void slotActualizarTablas();
-
 };
 
 #endif 

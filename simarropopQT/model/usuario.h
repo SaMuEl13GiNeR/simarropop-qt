@@ -2,7 +2,6 @@
 #define _USUARIO_H_
 
 #include <QString>
-#include <QDate>
 
 class Usuario{
 
@@ -10,6 +9,7 @@ public:
 	Usuario();
 	Usuario(int ,QString ,QString, float, float, QString, QString);
 	Usuario(QString ,QString, float, float, QString, QString);
+	
 	int id;
 	QString name;
 	QString apellidos;
@@ -17,13 +17,7 @@ public:
 	float latitud;
 	QString correo;
 	QString contrasenya;
-
 	
-	
-private:
-	
-
-
 };
 
 #endif

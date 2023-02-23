@@ -65,7 +65,7 @@
     <string>Usuario Receptor</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="estrellasLineEdit">
+  <widget class="QLineEdit" name="leEstrellas">
    <property name="geometry">
     <rect>
      <x>280</x>
@@ -75,7 +75,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLineEdit" name="opinionLineEdit">
+  <widget class="QLineEdit" name="leOpinion">
    <property name="geometry">
     <rect>
      <x>280</x>
@@ -85,7 +85,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLineEdit" name="usuario_emisorLineEdit">
+  <widget class="QLineEdit" name="leUsuario_emisor">
    <property name="geometry">
     <rect>
      <x>280</x>
@@ -95,7 +95,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLineEdit" name="usuario_receptorLineEdit">
+  <widget class="QLineEdit" name="leUsuario_receptor">
    <property name="geometry">
     <rect>
      <x>280</x>
@@ -128,7 +128,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Cancelar</string>
+    <string>Borrar</string>
    </property>
   </widget>
  </widget>

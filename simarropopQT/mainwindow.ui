@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>825</width>
-    <height>613</height>
+    <width>1121</width>
+    <height>631</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,9 +18,9 @@
     <property name="geometry">
      <rect>
       <x>60</x>
-      <y>60</y>
-      <width>681</width>
-      <height>461</height>
+      <y>30</y>
+      <width>1001</width>
+      <height>511</height>
      </rect>
     </property>
     <widget class="QWidget" name="tab">
@@ -34,17 +34,17 @@
      </attribute>
     </widget>
    </widget>
-   <widget class="QPushButton" name="btnActTablas">
+   <widget class="QPushButton" name="btnActTabs">
     <property name="geometry">
      <rect>
-      <x>548</x>
-      <y>20</y>
+      <x>480</x>
+      <y>570</y>
       <width>161</width>
       <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string>Actualizar tablas</string>
+     <string>Recargar los tabs</string>
     </property>
    </widget>
   </widget>

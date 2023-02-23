@@ -15,39 +15,30 @@ int ModeloTablaUsuario::rowCount(const QModelIndex &)const{
 QVariant ModeloTablaUsuario::data(const QModelIndex &index, int role)const{
 	int row = index.row();
 	int col = index.column();
-	if(role ==Qt::BackgroundRole){
-		
-	}
+	if(role ==Qt::BackgroundRole){}
 	if(role !=Qt::DisplayRole) return QVariant();
 	QString cadena("");
 	switch(col){
 		case 0:
 			cadena=QString::number(listaUsuario->at(row)->id);
-			
 			break;
 		case 1:
 			cadena=listaUsuario->at(row)->name;
-			
 			break;
 		case 2:
 			cadena=listaUsuario->at(row)->apellidos;
-			
 			break;
 		case 3:
 			cadena=QString::number(listaUsuario->at(row)->longitud);
-			
 			break;
 		case 4:
 			cadena=QString::number(listaUsuario->at(row)->latitud);
-			
 			break;
 		case 5:
 			cadena=listaUsuario->at(row)->correo;
-			
 			break;
 		case 6:
 			cadena=listaUsuario->at(row)->contrasenya;
-			
 			break;
 	}
 	return QVariant(cadena);
@@ -67,15 +58,12 @@ QVariant ModeloTablaUsuario::headerData(int section,Qt::Orientation orientation,
 			}
 		}
 		if(orientation==Qt::Vertical){
-		return QVariant(QString::number(section));
-		
+			return QVariant(QString::number(section));
 		}
-		return QVariant();
+	return QVariant();
 }
 
 void ModeloTablaUsuario::tablaModificada(){
 	emit layoutChanged();
-
-
 }
 

@@ -78,7 +78,7 @@
     <string>Contrasenya</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="nameLineEdit">
+  <widget class="QLineEdit" name="leName">
    <property name="geometry">
     <rect>
      <x>210</x>
@@ -88,7 +88,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLineEdit" name="latitudLineEdit">
+  <widget class="QLineEdit" name="leLatitud">
    <property name="geometry">
     <rect>
      <x>210</x>
@@ -98,7 +98,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLineEdit" name="apellidosLineEdit">
+  <widget class="QLineEdit" name="leApellidos">
    <property name="geometry">
     <rect>
      <x>210</x>
@@ -108,7 +108,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLineEdit" name="correoLineEdit">
+  <widget class="QLineEdit" name="leCorreo">
    <property name="geometry">
     <rect>
      <x>210</x>
@@ -118,7 +118,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLineEdit" name="contrasenyaLineEdit">
+  <widget class="QLineEdit" name="leContrasenya">
    <property name="geometry">
     <rect>
      <x>210</x>
@@ -151,10 +151,10 @@
     </rect>
    </property>
    <property name="text">
-    <string>Cancelar</string>
+    <string>Borrar</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="longitudLineEdit">
+  <widget class="QLineEdit" name="leLongitud">
    <property name="geometry">
     <rect>
      <x>210</x>

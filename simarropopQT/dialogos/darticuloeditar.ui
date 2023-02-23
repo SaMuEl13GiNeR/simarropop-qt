@@ -91,7 +91,7 @@
     <string>Usuario Comprador</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="tituloLineEdit">
+  <widget class="QLineEdit" name="leTitulo">
    <property name="geometry">
     <rect>
      <x>340</x>
@@ -101,7 +101,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLineEdit" name="categoriaLineEdit">
+  <widget class="QLineEdit" name="leCategoria">
    <property name="geometry">
     <rect>
      <x>340</x>
@@ -111,7 +111,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLineEdit" name="precioLineEdit">
+  <widget class="QLineEdit" name="lePrecio">
    <property name="geometry">
     <rect>
      <x>340</x>
@@ -121,7 +121,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLineEdit" name="descripcionLineEdit">
+  <widget class="QLineEdit" name="leDescripcion">
    <property name="geometry">
     <rect>
      <x>340</x>
@@ -131,7 +131,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLineEdit" name="usuario_compradorLineEdit">
+  <widget class="QLineEdit" name="leUsuario_comprador">
    <property name="geometry">
     <rect>
      <x>340</x>
@@ -141,7 +141,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLineEdit" name="estadoLineEdit">
+  <widget class="QLineEdit" name="leEstado">
    <property name="geometry">
     <rect>
      <x>340</x>
@@ -174,7 +174,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Cancelar</string>
+    <string>Borrar</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_7">
@@ -190,7 +190,7 @@
     <string>Usuario Vendedor</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="usuario_vendedorLineEdit">
+  <widget class="QLineEdit" name="leUsuario_vendedor">
    <property name="geometry">
     <rect>
      <x>340</x>
@@ -200,7 +200,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLineEdit" name="likesLineEdit">
+  <widget class="QLineEdit" name="leLikes">
    <property name="geometry">
     <rect>
      <x>340</x>

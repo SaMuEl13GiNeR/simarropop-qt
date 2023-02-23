@@ -1,15 +1,13 @@
 #include "dvaloracioneditar.h"
-#include <QDebug>
 
 DValoracionEditar::DValoracionEditar(Valoracion *valoracionPasada,QWidget *parent): QDialog(parent){
 		setupUi(this);
-	btnCancelar->setText("Borrar");
 	valCtrl = new ValoracionController();
 	valoracion = valoracionPasada;
-	estrellasLineEdit->insert(QString::number(valoracion->estrellas));
-	opinionLineEdit->insert(valoracion->opinion);
-	usuario_emisorLineEdit->insert(QString::number(valoracion->usuario_emisor));
-	usuario_receptorLineEdit->insert(QString::number(valoracion->usuario_receptor));
+	leEstrellas->insert(QString::number(valoracion->estrellas));
+	leOpinion->insert(valoracion->opinion);
+	leUsuario_emisor->insert(QString::number(valoracion->usuario_emisor));
+	leUsuario_receptor->insert(QString::number(valoracion->usuario_receptor));
 	connect(btnGuardar,SIGNAL(clicked()),
 			this,SLOT(slotGuardarDialogo()));
 	connect(btnCancelar,SIGNAL(clicked()),
@@ -31,38 +29,38 @@ DValoracionEditar::DValoracionEditar(QWidget *parent): QDialog(parent){
 }
 
 void DValoracionEditar::slotInsertarDialogo(){
-	int respuesta = QMessageBox::warning(this,QString("Está seguro que quieres guardar?"),
+	int respuesta = QMessageBox::warning(this,QString("Vas a insertar la valoracion en la bd"),
 	QString("¿Seguro?"),
 	QMessageBox::Yes | QMessageBox::No);
-	if (respuesta == QMessageBox::No) qDebug()<<"No se aceptó el dialogo";
+	if (respuesta == QMessageBox::No);
 	if(respuesta == QMessageBox::Yes){
-		valoracion = new Valoracion(estrellasLineEdit->displayText().toInt(),
-		opinionLineEdit->displayText(),
-		usuario_emisorLineEdit->displayText().toInt(),
-		usuario_receptorLineEdit->displayText().toInt());
+		valoracion = new Valoracion(leEstrellas->displayText().toInt(),
+		leOpinion->displayText(),
+		leUsuario_emisor->displayText().toInt(),
+		leUsuario_receptor->displayText().toInt());
 		valCtrl->insertarValoracion(valoracion);
 	}
 }
 
 void DValoracionEditar::slotGuardarDialogo(){
-int respuesta = QMessageBox::warning(this,QString("Esta seguro que quieres guardar?"),
+int respuesta = QMessageBox::warning(this,QString("Vas a modificar la valoracion en la bd"),
 	QString("¿Seguro?"),
 	QMessageBox::Yes | QMessageBox::No);
-	if (respuesta == QMessageBox::No) qDebug()<<"no se acepto el dialogo";
+	if (respuesta == QMessageBox::No);
 	if(respuesta == QMessageBox::Yes){
-		valoracion->estrellas=estrellasLineEdit->displayText().toInt();
-		valoracion->opinion=opinionLineEdit->displayText();
-		valoracion->usuario_emisor=(usuario_emisorLineEdit->displayText().toInt());
-		valoracion->usuario_receptor=(usuario_receptorLineEdit->displayText().toInt());
+		valoracion->estrellas=leEstrellas->displayText().toInt();
+		valoracion->opinion=leOpinion->displayText();
+		valoracion->usuario_emisor=(leUsuario_emisor->displayText().toInt());
+		valoracion->usuario_receptor=(leUsuario_receptor->displayText().toInt());
 		valCtrl->editarValoracion(valoracion);
 	}
 }
 
 void DValoracionEditar::slotBorrarDialogo(){
-	int respuesta = QMessageBox::warning(this,QString("Esta seguro que quieres borrar?"),
+	int respuesta = QMessageBox::warning(this,QString("Vas a borrar la valoracion de la bd"),
 	QString("¿Seguro?"),
 	QMessageBox::Yes | QMessageBox::No);
-	if (respuesta == QMessageBox::No) qDebug()<<"no se acepto el dialogo";
+	if (respuesta == QMessageBox::No);
 	if(respuesta == QMessageBox::Yes){
 		valCtrl->eliminarValoracion(valoracion->id);
 	}

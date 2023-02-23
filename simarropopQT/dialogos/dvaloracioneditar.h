@@ -1,15 +1,15 @@
-#ifndef DVALORACION_H
-#define DVALORACION_H
+#ifndef _DVALORACION_H
+#define _DVALORACION_H
 #include "ui_dvaloracioneditar.h"
 
 #include <QVector>
 #include <QDialog>
 #include <QHBoxLayout>
 #include <QString>
-#include "model/valoracion.h"
-#include "controller/valoracioncontroller.h"
 #include <QMessageBox>
 #include <QCloseEvent>
+#include "model/valoracion.h"
+#include "controller/valoracioncontroller.h"
 
 class DValoracionEditar : public QDialog, public Ui::DValoracionEditar {
 Q_OBJECT
@@ -20,6 +20,7 @@ public:
 	Valoracion *valoracion;
 	ValoracionController *valCtrl;
 	void closeEvent(QCloseEvent *);
+	
 public slots:
 	void slotGuardarDialogo();
 	void slotCancelarDialogo();
